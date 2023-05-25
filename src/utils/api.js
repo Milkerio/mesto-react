@@ -6,7 +6,7 @@ class Api{
     }
 
     /* прверка на ошибки */
-    _errorCheck(res) {
+    _checkError(res) {
         if(res.ok){
             return res.json();
         }
@@ -17,7 +17,7 @@ class Api{
         return fetch(`${this._url}/cards`, {
             headers: this._headers,
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     /* добавляем новую карточку */
     addNewCard(data){
@@ -29,7 +29,7 @@ class Api{
                 link: data.link
             })
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     /* удаление карточки */ 
     deleteCard(cardId) {
@@ -37,13 +37,13 @@ class Api{
           method: 'DELETE',
           headers: this._headers,
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     getUserInfo(){
         return fetch(`${this._url}/users/me`, {
             headers: this._headers,
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     setUserInfo(data){
         return fetch(`${this._url}/users/me`, {
@@ -54,7 +54,7 @@ class Api{
                 about: data.about
             })
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     setUserAvatar(data){
         return fetch(`${this._url}/users/me/avatar`, {
@@ -64,21 +64,21 @@ class Api{
                 avatar: data.avatar
             })
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     putLike(cardId){
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: this._headers,
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
     deleteLike(cardId){
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: this._headers,
         })
-        .then(res => this._errorCheck(res))
+        .then(res => this._checkError(res))
     }
 }
 export const api = new Api(apiSettings);

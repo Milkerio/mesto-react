@@ -52,30 +52,35 @@ function App() {
         
         api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        });
+        })
+        .catch(err => console.log(err))
     }
     function handleCardDelete(card){
         api.deleteCard(card._id).then(() => {
             setCards(state => state.filter((c) => c._id !== card._id))
-        });
+        })
+        .catch(err => console.log(err))
     }
     function handleUpdateUser(data){
         api.setUserInfo(data).then((res) => {
             setCurrentUser(res);
             closeAllPopups();
         })
+        .catch(err => console.log(err))
     }
     function handleUpdateAvatar(data) {
         api.setUserAvatar(data).then((res) => {
             setCurrentUser(res);
             closeAllPopups();
         })
+        .catch(err => console.log(err))
     }
     function handleAddPlaceSubmit(data) {
         api.addNewCard(data).then((newCard) => {
             setCards([newCard, ...cards]);
             closeAllPopups();
         })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -103,13 +108,14 @@ function App() {
                     onUpdateAvatar={handleUpdateAvatar}
                 />
                 <AddPlacePopup
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                onAddPlace={handleAddPlaceSubmit} 
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit} 
                 />
                 <PopupWithForm
                     name="delete"
                     title="Вы уверены?"
+                    buttonText="Да"
                 />
                 <ImagePopup 
                     card={selectedCard}
